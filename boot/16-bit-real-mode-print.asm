@@ -115,21 +115,16 @@ clear:
 
     xor di, di
 
-    ; Character + attribute
     mov ax, 0x0F20
-    ; 0x20 = space
-    ; 0x0F = white on black
 
     mov cx, VGA_WIDTH * VGA_HEIGHT
 
     cld
     rep stosw
 
-    ; Reset software cursor
     mov word [cursor_x], 0
     mov word [cursor_y], 0
 
-    ; Update hardware cursor
     call update_cursor
 
     popa
