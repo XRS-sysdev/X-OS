@@ -1,15 +1,20 @@
 [org 0x7c00]
 
 call clear
-mov bx, Boot_Message ; Load the Boot Message string into parameter register
-call print ; Call the print function
+mov bx, real_mode
+call print
+call print_nl
+mov bx, protected_mode_switch
+call print
+
+// TODO: Add 32 bit switching
 
 jmp $
 
-%include "boot/16-bit-real-mode-print.asm"
+%include "boot/16_bit_real_mode_print.asm"
 
-Boot_Message:
-    db 'X-OS', 0
+real_mode db "16-Bit Real Mode", 0
+protected_mode_switch db "Switching To 32-Bit Protected Mode", 0
 
 times 510-($-$$) db 0
 dw 0xaa55
